@@ -16,14 +16,14 @@ R2(config)#hostname R2
 ```bash
 // pc0
 IP Address : 10.0.0.1
-Subnet Mask : 255.255.255.128
+Subnet Mask : 255.255.255.0
 Default Gateway : 10.0.0.254
 ```
 
 ```bash
 // pc1
 IP Address : 10.0.1.1
-Subnet Mask : 255.255.255.0
+Subnet Mask : 255.255.255.128
 Default Gateway : 10.0.1.126
 ```
 
