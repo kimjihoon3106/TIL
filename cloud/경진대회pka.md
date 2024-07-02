@@ -89,3 +89,10 @@ IP Address : 5.5.5.2
 Subnet Mask : 255.255.255.0
 Default Gateway : 5.5.5.254
 ```
+3. R1 라우터의 Gig0/0 포트에 Description 설정을 합니다.
+-문구는 "This is Private Network"로 설정합니다.
+
+``` bash
+R1(config) #int g0/0
+R1(config-if) #description This is Private Network
+```
