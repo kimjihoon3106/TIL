@@ -1,5 +1,5 @@
 ## 경진대회pka
-### 1. 기본 구성
+### 가. 기본 구성
 1. 모든 라우터의 이름을 토폴로지를 참고하여, 변경하도록 합니다.
 
 ex)
@@ -134,3 +134,108 @@ R4#show cdp neighbors detail
 R2(config)# int s0/0/0
 R2(config-if)# clock rate 64000
 ```
+---
+
+### 나. 서브넷팅
+1. A 와 B 지역에 주어진 기본 주소 대역과 할당 범위를 잘 참고하여 주소를 할당 합니다.
+2. PC7과 PC8는 해당 서브넷의 2번째 주소를 할당합니다.
+
+참고 하세요
+```bash
+// pc0
+IP Address : 10.0.0.1
+Subnet Mask : 255.255.255.0
+Default Gateway : 10.0.0.254
+```
+
+```bash
+// pc1
+IP Address : 10.0.1.1
+Subnet Mask : 255.255.255.128
+Default Gateway : 10.0.1.126
+```
+
+```bash
+// pc2
+IP Address : 10.0.1.129
+Subnet Mask : 255.255.255.192
+Default Gateway : 10.0.1.190
+```
+
+```bash
+// pc3
+IP Address : 10.0.1.193
+Subnet Mask : 255.255.255.240
+Default Gateway : 10.0.1.206
+```
+
+```bash
+// pc4
+IP Address : 1.1.1.5
+Subnet Mask : 255.255.255.252
+Default Gateway : 1.1.1.6
+```
+
+```bash
+// pc5
+IP Address : 11.11.0.1
+Subnet Mask : 255.255.255.128
+Default Gateway : 11.11.0.126
+```
+
+```bash
+// pc6
+IP Address : 11.11.0.129
+Subnet Mask : 255.255.255.224
+Default Gateway : 11.11.0.158
+```
+
+```bash
+// pc7
+IP Address : 11.11.0.2
+Subnet Mask : 255.255.255.128
+Default Gateway : 11.11.0.126
+```
+
+```bash
+// pc8
+IP Address : 11.11.0.130
+Subnet Mask : 255.255.255.224
+Default Gateway : 11.11.0.158
+```
+
+```bash
+// pc9
+IP Address : 5.5.5.1
+Subnet Mask : 255.255.255.0
+Default Gateway : 5.5.5.254
+```
+
+```bash
+// pc10
+IP Address : 5.5.5.2
+Subnet Mask : 255.255.255.0
+Default Gateway : 5.5.5.254
+```
+
+---
+
+다. VLAN 및 이더채널 구성
+귀찮지만 잘생긴 나 니까 올려드려요
+1. 각 VLAN 설정은 토폴로지를 참고합니다.
+```bash
+Switch(config)# vlan 10
+Swtich(config-vlan)# name chrome
+Swtich(config-vlan)# int f0/1
+Swtich(config-if)# swtichport access vlan 10
+```
+
+```bash
+R1(config)# int g0/0.10
+R1(config-subif)# encapsulation dot1Q 10
+R1(config-subif)# ip address 10.0.0.254 255.255.255.0
+```
+
+2. SW3 와 SW4 사이의 이더채널을 설정합니다.
+( 이더채널 프로토콜은 시스코 전용 프로토콜을 사용하도록 하며, 적극적인 협상을 하도록 합니다. channel-group은 1을 사용합니다. )
+
