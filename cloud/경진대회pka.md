@@ -239,3 +239,14 @@ R1(config-subif)# ip address 10.0.0.254 255.255.255.0
 2. SW3 와 SW4 사이의 이더채널을 설정합니다.
 ( 이더채널 프로토콜은 시스코 전용 프로토콜을 사용하도록 하며, 적극적인 협상을 하도록 합니다. channel-group은 1을 사용합니다. )
 
+Sw3, Sw4 둘다 해야 함!!
+```bash
+Switch(config)# int range f0/23-24
+Swtich(config-if-range)# channel-protocol pagp
+Swtich(config-if-range)# channel-group 1 mode desirable
+```
+Sw3, Sw4 둘다 해야 함!!
+```bash
+// 중요!!
+Switch(config-if-range)# switchport mode trunk
+```
