@@ -120,3 +120,17 @@ R1(config)#username R1 password Skills39@@
 ```
 
 7. R5는 잠겨 있습니다. IP 정보를 확인 시, CDP 프로토콜을 사용하여 확인합니다.
+```bash
+R4(config)# cdp enable
+R4(conf-if)#exit
+R4(config)#cdp run
+R4#exit
+R4#show cdp neighbors detail
+```
+8. 모든 시리얼 링크의 clock rate는 64000으로 설정하도록 합니다.
+
+시계표시가 있는 부분만 설정하면 된다.
+```bash
+R2(config)# int s0/0/0
+R2(config-if)# clock rate 64000
+```
