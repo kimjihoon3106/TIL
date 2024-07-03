@@ -96,3 +96,27 @@ Default Gateway : 5.5.5.254
 R1(config) #int g0/0
 R1(config-if) #description This is Private Network
 ```
+
+4. R3 라우터에 배너 설정을 합니다.
+- 라우터에 접근 시, “Check your access permissions." 문구가 뜨도록 합니다.
+
+```bash
+R3(config)# banner motd *Check your access permisssions.
+```
+
+5. R2, R3, R4, R7 라우터의 config 모드 접근 시, md5 암호화 알고리즘이 적용된 암호 로 접근하도록 합니다. (암호는 “2017yynet"을 사용합니다.)
+
+```bash
+// ex
+R2(config)#enable secret 2017yynet
+```
+
+6. R1, R4, R8, R9 에 콘솔 접근 시, 로컬 계정 인증을 수행할 수 있도록 합니다.
+( username : [자신의 hostname] / password : Skills39@@ )
+
+```bash
+// ex
+R1(config)#username R1 password Skills39@@
+```
+
+7. R5는 잠겨 있습니다. IP 정보를 확인 시, CDP 프로토콜을 사용하여 확인합니다.
