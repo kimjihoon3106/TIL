@@ -307,3 +307,33 @@ R9
 ### 바. IOS 복구 및 패스워드 복구
 1. R3 라우터는 현재 IOS 이미지 파일이 손상되어 라우터가 정상적인 부팅이 되지 않습니다. Server0에 TFTP 서버를 이용하여 IOS 이미지 파일을 복구 합니다.( IOS 이미지 파일은 “c2800nm-advipservicesk9-mz.124-15.T1.bin" 입니다. )
 
+안되면 it에게
+IOS 복구(R3)
+```bash
+rommon>IP_ADDRESS=2.5.2.254
+rommon>IP_SUBNET_MASK=255.255.255.0
+rommon>DEFAULT_GATEWAY=2.5.2.10
+rommon>TFTP_SERVER=2.5.2.10
+rommon>TFTP_FILE=c2800nm-advipservicesk9-mz.124-15.T1.bin
+rommon>tftpdnld
+rommon>boot
+```
+
+3. R6 라우터는 패스워드 정보를 잃어버려 접속이 불가능합니다. 패스워드 복구 작업을 통해 정상적인 라우터 접속이 가능하도록 합니다.
+
+안되거나 모르겠으면 it에게
+physical 탭에서 전원을 껏다킨 후 CLL탭에서 atrl + pause(안전모드 들어가기) = ctrl + C도 됨
+```bash
+rommon>confreg 0x42
+rommon>boot
+yes한번
+no한번
+Router>en
+Router#copy s r
+R6#conf t
+R6(config)#ena se 2017yynet
+R6(config)# config-register 0x2102
+R6(config)#do wr & R6#wr(ite)
+R6(config)#do rel & R6#rel(oad)
+```
+
