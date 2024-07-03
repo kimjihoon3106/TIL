@@ -250,3 +250,60 @@ Sw3, Sw4 둘다 해야 함!!
 // 중요!!
 Switch(config-if-range)# switchport mode trunk
 ```
+
+---
+
+### 라. Wan 설정
+1. R8 과 R9 사이의 PPP 인증을 수행합니다.
+- chap 인증방식을 사용하도록 합니다.
+
+R8과 R9둘다 설엊
+```bash
+R8(config)# int s0/0/1
+R8(config-if)#encapsulation ppp
+R8(config-if)#ppp authentication chap
+```
+ 
+2. 라우터 사이의 시리얼 링크 중 한 곳에서 잘못된 구성으로 인해 통신이 안되는 구간이 있습니다. 잘못된 곳을 찾아 수정을 할 수 있도록 합니다.
+
+이거 해석은 it에게
+```bash
+R7(config)# int s0/0/1
+R7(config-if)#no encapsulation
+```
+---
+### 마. 라우팅 설정
+모든 라우터는 RIPv2를 사용한 라우팅을 실시 합니다.
+라우팅 테이블 교환 시, 서브넷 정보가 요약이 되지 않도록 합니다.
+
+모두 설정해줘야함 여러개를 설정해야할 수도 있음.
+```bash
+R2(config)# router rip
+R2(config-router)# version 2
+R2(config-router)# network 1.0.0.0
+R2(config-router)#no auto summary
+```
+```basj
+R1
+1.0.0.0 , 11.0.0.0
+R2
+1.0.0.0
+R3
+1.0.0.0 , 2.0.0.0
+R4
+2.0.0.0 , 3.0.0.0 , 11.0.0.0
+R5
+3.0.0.0
+R6
+3.0.0.0 , 110.0.0.0
+R7
+3.0.0.0 , 4.0.0.0
+R8
+4.0.0.0 , 5.0.0.0 , 6.0.0.0
+R9
+4.0.0.0
+```
+
+### 바. IOS 복구 및 패스워드 복구
+1. R3 라우터는 현재 IOS 이미지 파일이 손상되어 라우터가 정상적인 부팅이 되지 않습니다. Server0에 TFTP 서버를 이용하여 IOS 이미지 파일을 복구 합니다.( IOS 이미지 파일은 “c2800nm-advipservicesk9-mz.124-15.T1.bin" 입니다. )
+
